@@ -10,8 +10,13 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [interviewStarted, setInterviewStarted] = useState(false);
   const [feedback, setFeedback] = useState("");
+  const [allAnswers, setAllAnswers] = useState([]);
+  const [allFeedback, setAllFeedback] = useState([]);
+  const [finalReport, setFinalReport] = useState("");
+  const [interviewFinished, setInterviewFinished] = useState(false);
 
   const generateQuestions = async () => {
+    console.log("GENERATE REPORT CALLED");
     if (!file) {
       alert("Please select a PDF resume");
       return;
@@ -52,9 +57,37 @@ function App() {
     );
 
     setFeedback(response.data.feedback);
+    setAllAnswers([
+    ...allAnswers,
+    {
+      question: questions[currentQuestion],
+      answer: answer,
+    },
+  ]);
+  setAllFeedback([
+    ...allFeedback,
+    response.data.feedback,
+  ]);
   } catch (error) {
     console.error(error);
     alert("Evaluation failed");
+  }
+};
+  const generateReport = async () => {
+  try {
+    const response = await axios.post(
+      "http://127.0.0.1:8000/generate-report",
+      {
+        feedbacks: allFeedback,
+      }
+    );
+
+    setFinalReport(response.data.report);
+    setInterviewFinished(true);
+    
+  } catch (error) {
+    console.error(error);
+    alert("Failed to generate report");
   }
 };
 
@@ -82,7 +115,8 @@ function App() {
       <br />
       <br />
 
-      <button onClick={generateQuestions}>
+      <button 
+        onClick={generateQuestions}>
         Generate Questions
       </button>
 
@@ -115,7 +149,7 @@ function App() {
     Start Interview
   </button>
 )}
-{interviewStarted && (
+{interviewStarted && !interviewFinished && (
   <div
     style={{
       marginTop: "30px",
@@ -163,20 +197,16 @@ function App() {
           setCurrentQuestion(currentQuestion + 1);
           setAnswer("");
           setFeedback("");
+        } else {
+          generateReport();
         }
-      }}
-      style={{
-        marginTop: "20px",
-        padding: "10px 20px",
-        borderRadius: "8px",
-        cursor: "pointer",
       }}
     >
       Next Question
     </button>
 
     {feedback && (
-  <div
+      <div
     style={{
       marginTop: "20px",
       background: "#111827",
@@ -184,12 +214,30 @@ function App() {
       borderRadius: "10px",
       whiteSpace: "pre-wrap",
     }}
+      >
+        <ReactMarkdown>{feedback}</ReactMarkdown>
+      </div>
+    )}
+  </div>
+)}
+
+{finalReport && (
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+      marginTop: "20px",
+    }}
   >
-    <ReactMarkdown>{feedback}</ReactMarkdown>
+    <h2>Final Interview Report</h2>
+
+    <ReactMarkdown>
+      {finalReport}
+    </ReactMarkdown>
   </div>
 )}
-  </div>
-)}
+
     </div>
   );
 }

@@ -25,6 +25,8 @@ client = Groq(
 class AnswerEvaluation(BaseModel):
     question: str
     answer: str
+class InterviewReport(BaseModel):
+    feedbacks: list[str]
 
 @app.get("/")
 def home():
@@ -157,30 +159,78 @@ def test_ai():
 @app.post("/evaluate-answer")
 def evaluate_answer(data: AnswerEvaluation):
 
+    print("EVALUATE ENDPOINT HIT")
+
+    try:
+        prompt = f"""
+You are a strict technical interviewer.
+
+Question:
+{data.question}
+
+Candidate Answer:
+{data.answer}
+
+Evaluate ONLY the candidate's answer.
+
+Do NOT create sample answers.
+Do NOT invent experience.
+
+Return:
+
+Score: X/10
+
+Strengths:
+- ...
+
+Weaknesses:
+- ...
+
+Improvement Suggestions:
+- ...
+"""
+
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            model="llama-3.3-70b-versatile"
+        )
+
+        return {
+            "feedback": chat_completion.choices[0].message.content
+        }
+
+    except Exception as e:
+        print("ERROR:", repr(e))
+        raise e
+        
+@app.post("/generate-report")
+def generate_report(data: InterviewReport):
+
     prompt = f"""
-    You are a senior technical interviewer.
+You are a senior technical interviewer.
 
-    Question:
-    {data.question}
+Based on these interview evaluations:
 
-    Candidate Answer:
-    {data.answer}
+{chr(10).join(data.feedbacks)}
 
-    Evaluate the answer.
+Generate a final interview report.
 
-    Give:
+Include:
 
-    Score: X/10
+1. Overall Score (out of 10)
+2. Technical Strengths
+3. Technical Weaknesses
+4. Communication Assessment
+5. Recommended Topics to Study
+6. Hiring Recommendation
 
-    Strengths:
-    - ...
-
-    Weaknesses:
-    - ...
-
-    Improvement Suggestions:
-    - ...
-    """
+Keep it professional.
+"""
 
     chat_completion = client.chat.completions.create(
         messages=[
@@ -193,5 +243,5 @@ def evaluate_answer(data: AnswerEvaluation):
     )
 
     return {
-        "feedback": chat_completion.choices[0].message.content
+        "report": chat_completion.choices[0].message.content
     }

@@ -176,18 +176,27 @@ Evaluate ONLY the candidate's answer.
 Do NOT create sample answers.
 Do NOT invent experience.
 
-Return:
+Return ONLY in the following format:
 
-Score: X/10
+**SCORE: X/10**
 
 Strengths:
-- ...
+- point 1
+- point 2
 
 Weaknesses:
-- ...
+- point 1
+- point 2
 
 Improvement Suggestions:
-- ...
+- point 1
+- point 2
+
+Rules:
+- Give at least 2 bullet points under each section whenever possible.
+- Do not write paragraphs.
+- Keep points concise.
+- Use markdown bullet lists.
 """
 
         chat_completion = client.chat.completions.create(
@@ -207,7 +216,7 @@ Improvement Suggestions:
     except Exception as e:
         print("ERROR:", repr(e))
         raise e
-        
+
 @app.post("/generate-report")
 def generate_report(data: InterviewReport):
 
@@ -229,7 +238,32 @@ Include:
 5. Recommended Topics to Study
 6. Hiring Recommendation
 
-Keep it professional.
+Keep it professional, concise, and easy to scan.
+
+Return the report in clean markdown format.
+
+Use:
+
+## 🎯 Overall Score
+
+## 💪 Technical Strengths
+- Point 1
+- Point 2
+
+## ⚠️ Technical Weaknesses
+- Point 1
+- Point 2
+
+## 🗣️ Communication Assessment
+
+## 📚 Recommended Topics To Study
+- Point 1
+- Point 2
+
+## ✅ Hiring Recommendation
+Do not center text.
+Do not use excessive spacing.
+Use standard markdown bullet lists.
 """
 
     chat_completion = client.chat.completions.create(

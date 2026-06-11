@@ -115,4 +115,4 @@ uvicorn main:app --reload
 
 ## 👨‍💻 Author
 
-Kenzi
+Kenaz

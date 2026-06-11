@@ -1,4 +1,4 @@
-# 🚀 InterviewPilot
+# ⚜ InterviewPilot
 
 InterviewPilot is an AI-powered mock interview platform that helps candidates prepare for technical interviews through personalized question generation, answer evaluation, and detailed performance analysis.
 

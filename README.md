@@ -1,34 +1,118 @@
-# InterviewPilot 🚀
+# 🚀 InterviewPilot
 
-AI-powered mock interview platform that generates interview questions from a resume and evaluates candidate answers using LLMs.
+InterviewPilot is an AI-powered mock interview platform that helps candidates prepare for technical interviews through personalized question generation, answer evaluation, and detailed performance analysis.
 
-## Features
+---
 
-- Resume PDF Upload
-- AI-generated interview questions
-- Interactive interview mode
-- AI answer evaluation
-- Score and feedback generation
+## ✨ Features
 
-## Tech Stack
+- 📄 Resume Upload & Analysis
+- 🤖 AI-Generated Technical Questions
+- ⏱ Real-Time Interview Timer
+- 🎯 AI Answer Evaluation
+- 📊 Detailed Interview Report
+- 📥 PDF Report Download
+- 💡 Personalized Improvement Suggestions
+
+---
+
+## 🛠 Tech Stack
 
 ### Frontend
-- React
+- React.js
+- React Markdown
 - Axios
-- Vite
 
 ### Backend
 - FastAPI
 - Python
-- Gemini API
 
-## Future Improvements
+### AI
+- Groq API
+- Llama 3.3 70B
 
-- Voice interviews
-- Final interview report
-- Authentication
-- Performance analytics
+### PDF Processing
+- PyPDF
+- jsPDF
 
-## Author
+---
 
-Kenaz
+## 🔄 Workflow
+
+Resume Upload
+
+⬇
+
+Question Generation
+
+⬇
+
+Mock Interview
+
+⬇
+
+Answer Evaluation
+
+⬇
+
+Final Report Generation
+
+⬇
+
+PDF Export
+
+---
+
+## ⚙️ Installation
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+---
+
+## 📸 Screenshots
+
+### Home Page
+
+(Add screenshot here)
+
+### Interview Screen
+
+(Add screenshot here)
+
+### Evaluation Screen
+
+(Add screenshot here)
+
+### Final Report
+
+(Add screenshot here)
+
+---
+
+## 🎯 Future Improvements
+
+- Voice-based interviews
+- Webcam monitoring
+- Difficulty-based question generation
+- Interview analytics dashboard
+- Multiple interview domains
+
+---
+
+## 👨‍💻 Author
+
+Kenzi

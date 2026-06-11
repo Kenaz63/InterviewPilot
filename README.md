@@ -27,14 +27,92 @@ InterviewPilot is an AI-powered mock interview platform that helps candidates pr
 - FastAPI
 - Python
 
+### AI
+- Groq API
+- Llama 3.3 70B
 
-## Future Improvements
+### PDF Processing
+- PyPDF
+- jsPDF
 
-- Voice interviews
-- Final interview report
-- Authentication
-- Performance analytics
+---
 
-## Author
+## 🔄 Workflow
+
+Resume Upload
+
+⬇
+
+Question Generation
+
+⬇
+
+Mock Interview
+
+⬇
+
+Answer Evaluation
+
+⬇
+
+Final Report Generation
+
+⬇
+
+PDF Export
+
+---
+
+## ⚙️ Installation
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+---
+
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](screenshots/home.png)
+
+### Interview Screen
+
+![Interview Screen](screenshots/interview.png)
+
+### Evaluation Screen
+
+![Evaluation Screen](screenshots/evaluation.png)
+
+### Final Report
+
+![Final Report](screenshots/report.png)
+
+---
+
+## 🎯 Future Improvements
+
+- Voice-based interviews
+- Webcam monitoring
+- Difficulty-based question generation
+- Interview analytics dashboard
+- Multiple interview domains
+
+---
+
+## 👨‍💻 Author
 
 Kenaz
